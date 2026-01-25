@@ -51,10 +51,10 @@ namespace Com.Wipro.Citizen.Service
             // Test Case 2 (VALID – NEW ID)
             Console.WriteLine("Test Case 2: Register Citizen (Valid)");
             CitizenBean c1 = new CitizenBean();
-            c1.CitizenID = "C20001";   // ✅ NEW ID
-            c1.CitizenName = "Arun";
+            c1.CitizenID = "C30001";   // ✅ NEW ID
+            c1.CitizenName = "dinakar";
             c1.Age = 29;
-            c1.City = "Madurai";
+            c1.City = "sakthi";
             c1.Status = "Active";
             Console.WriteLine(citizenMain.register(c1));
             Console.WriteLine();
