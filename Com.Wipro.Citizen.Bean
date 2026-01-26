@@ -1,0 +1,41 @@
+namespace Com.Wipro.Citizen.Bean
+{
+    public class CitizenBean
+    {
+        public string citizenID;
+        public string citizenName;
+        public int age;
+        public string city;
+        public string status;
+
+        public string CitizenID
+        {
+            get { return citizenID; }
+            set { citizenID = value; }
+        }
+
+        public string CitizenName
+        {
+            get { return citizenName; }
+            set { citizenName = value; }
+        }
+
+        public int Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
+
+        public string City
+        {
+            get { return city; }
+            set { city = value; }
+        }
+
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+    }
+}
