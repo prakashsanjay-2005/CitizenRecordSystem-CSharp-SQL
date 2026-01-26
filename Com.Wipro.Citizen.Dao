@@ -1,0 +1,73 @@
+using Microsoft.Data.SqlClient;
+using Com.Wipro.Citizen.Bean;
+using Com.Wipro.Citizen.Util;
+
+namespace Com.Wipro.Citizen.Dao
+{
+    public class CitizenDAO
+    {
+        public bool validateCitizen(string citizenID)
+        {
+            SqlConnection con = DBUtil.GetDBConnection();
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand(
+                "select count(*) from CITIZEN_TBL where Citizen_ID=@id", con);
+
+            cmd.Parameters.AddWithValue("@id", citizenID);
+
+            int count = (int)cmd.ExecuteScalar();
+            con.Close();
+
+            return count > 0;
+        }
+
+        public CitizenBean viewCitizen(string citizenID)
+        {
+            CitizenBean cb = null;
+
+            SqlConnection con = DBUtil.GetDBConnection();
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand(
+                "select * from CITIZEN_TBL where Citizen_ID=@id", con);
+
+            cmd.Parameters.AddWithValue("@id", citizenID);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                cb = new CitizenBean();
+                cb.CitizenID = dr[0].ToString();
+                cb.CitizenName = dr[1].ToString();
+                cb.Age = int.Parse(dr[2].ToString());
+                cb.City = dr[3].ToString();
+                cb.Status = dr[4].ToString();
+            }
+
+            con.Close();
+            return cb;
+        }
+
+        public bool registerCitizen(CitizenBean citizenBean)
+        {
+            SqlConnection con = DBUtil.GetDBConnection();
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand(
+                "insert into CITIZEN_TBL values(@id,@name,@age,@city,@status)", con);
+
+            cmd.Parameters.AddWithValue("@id", citizenBean.CitizenID);
+            cmd.Parameters.AddWithValue("@name", citizenBean.CitizenName);
+            cmd.Parameters.AddWithValue("@age", citizenBean.Age);
+            cmd.Parameters.AddWithValue("@city", citizenBean.City);
+            cmd.Parameters.AddWithValue("@status", citizenBean.Status);
+
+            int rows = cmd.ExecuteNonQuery();
+            con.Close();
+
+            return rows > 0;
+        }
+    }
+}
