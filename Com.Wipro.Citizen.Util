@@ -1,0 +1,27 @@
+using Microsoft.Data.SqlClient;
+
+namespace Com.Wipro.Citizen.Util
+{
+    public class DBUtil
+    {
+        public static SqlConnection GetDBConnection()
+        {
+            SqlConnection con = new SqlConnection(
+                  @"Data Source=localhost\SQLEXPRESS;Initial Catalog=CITIZENDB;Integrated Security=True;TrustServerCertificate=True");
+            return con;
+        }
+    }
+}
+
+using System;
+
+namespace Com.Wipro.Citizen.Util
+{
+    public class InvalidCitizenException : Exception
+    {
+        public override string ToString()
+        {
+            return "INVALID CITIZEN DETAILS";
+        }
+    }
+}
