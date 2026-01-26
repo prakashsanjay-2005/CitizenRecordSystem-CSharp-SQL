@@ -1,0 +1,74 @@
+using System;
+using Com.Wipro.Citizen.Bean;
+using Com.Wipro.Citizen.Dao;
+using Com.Wipro.Citizen.Util;
+
+namespace Com.Wipro.Citizen.Service
+{
+    public class CitizenMain
+    {
+        CitizenDAO dao = new CitizenDAO();
+
+        public string viewCitizen(string citizenID)
+        {
+            if (dao.validateCitizen(citizenID))
+            {
+                CitizenBean cb = dao.viewCitizen(citizenID);
+                return "CITIZEN DETAILS FOUND";
+            }
+            return "CITIZEN NOT FOUND";
+        }
+
+        public string register(CitizenBean citizenBean)
+        {
+            if (citizenBean == null)
+                return "INVALID";
+
+            try
+            {
+                if (dao.validateCitizen(citizenBean.CitizenID) || citizenBean.Age < 18)
+                {
+                    throw new InvalidCitizenException();
+                }
+
+                bool result = dao.registerCitizen(citizenBean);
+
+                if (result)
+                    return "SUCCESS";
+            }
+            catch (InvalidCitizenException e)
+            {
+                return e.ToString();
+            }
+
+            return "INVALID";
+        }
+
+        public static void Main(string[] args)
+        {
+            CitizenMain citizenMain = new CitizenMain();
+
+            Console.WriteLine(citizenMain.viewCitizen("C10001"));
+
+            CitizenBean c1 = new CitizenBean();
+            c1.CitizenID = "C10008";
+            c1.CitizenName = "rahul";
+            c1.Age = 29;
+            c1.City = "Madurai";
+            c1.Status = "Active";
+            Console.WriteLine(citizenMain.register(c1));
+
+            CitizenBean c2 = new CitizenBean();
+            c2.CitizenID = "C10004";
+            c2.CitizenName = "Kavi";
+            c2.Age = 16;
+            c2.City = "Salem";
+            c2.Status = "Active";
+            Console.WriteLine(citizenMain.register(c2));
+
+            Console.WriteLine(citizenMain.viewCitizen("C99999"));
+
+            Console.WriteLine(citizenMain.register(null));
+        }
+    }
+}
