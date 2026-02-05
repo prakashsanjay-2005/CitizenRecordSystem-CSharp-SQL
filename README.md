@@ -36,4 +36,24 @@ This application validates citizen data before registration and uses ADO.NET for
 ---
 
 ## 📂 Project Structure
+CitizenRecordInformationSystem
+│
+├── Com.Wipro.Citizen.Bean
+│   └── CitizenBean.cs
+│
+├── Com.Wipro.Citizen.Dao
+│   └── CitizenDAO.cs
+│
+├── Com.Wipro.Citizen.Service
+│   └── CitizenMain.cs
+│
+├── Com.Wipro.Citizen.Util
+│   ├── DBUtil.cs
+│   └── InvalidCitizenException.cs
+│
+├── Database
+│   └── citizen_db.sql
+│
+└── README.md
+
 
